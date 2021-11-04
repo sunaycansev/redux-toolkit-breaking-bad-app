@@ -10,6 +10,7 @@ import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 
 import { SingleQuote } from "./SingleQuote";
+import { Link } from "react-router-dom";
 
 const Quotes = () => {
   const data = useSelector(quotesSelector);
