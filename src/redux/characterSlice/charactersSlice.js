@@ -3,7 +3,9 @@ import { fetchCharacters } from "./charactersServices";
 
 const initialState = {
   items: [],
-  isLoading: false,
+  status: "idle",
+  page: 0,
+  hasNextPage: true,
 };
 export const charactersSlice = createSlice({
   name: "character",
@@ -11,14 +13,20 @@ export const charactersSlice = createSlice({
   reducers: {},
   extraReducers: {
     [fetchCharacters.pending]: (state) => {
-      state.isLoading = true;
+      state.status = "loading";
     },
     [fetchCharacters.fulfilled]: (state, action) => {
-      state.items = action.payload;
-      state.isLoading = false;
+      if (action.payload.length === 12) {
+        state.items = [...state.items, ...action.payload];
+        state.page += 1;
+      } else {
+        state.hasNextPage = false;
+      }
+
+      state.status = "succeeded";
     },
     [fetchCharacters.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.status = "failed";
       state.error = action.error.message;
     },
   },
