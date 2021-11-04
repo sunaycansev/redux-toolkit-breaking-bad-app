@@ -39,7 +39,7 @@ const Home = () => {
       >
         {characters.map((item) => (
           <div key={item.char_id}>
-            <Link to={`/character/${item.char_id}`}>
+            <Link to={`/characters/${item.char_id}`}>
               <img src={item.img} alt={item.name} className="character-img" />
               <h4>{item.name}</h4>
             </Link>
